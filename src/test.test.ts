@@ -10,4 +10,9 @@ describe("Potter Kata", () => {
     const result = checkout(["Potter 1"]);
     expect(result).toBe(8);
   });
+
+  it("Costs 16 if the 2 provided books are the same", () => {
+    const result = checkout(["Potter 1", "Potter 1"]);
+    expect(result).toBe(16);
+  });
 });
