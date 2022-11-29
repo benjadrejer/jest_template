@@ -15,4 +15,18 @@ describe("Potter Kata", () => {
     const result = checkout(["Potter 1", "Potter 1"]);
     expect(result).toBe(16);
   });
+
+  it("Gives 5% discount if the 2 provided books are different", () => {
+    const books = ["Potter 1", "Potter 2"];
+    const result = checkout(books);
+    const expectedResult = 16 - 0.8;
+    expect(result).toBe(expectedResult);
+  });
+
+  it("Gives 5% discount on 2 different books and full price on a duplicate", () => {
+    const books = ["Potter 1", "Potter 2", "Potter 1"];
+    const result = checkout(books);
+    const expectedResult = 16 - 0.8 + 8;
+    expect(result).toBe(expectedResult);
+  });
 });
