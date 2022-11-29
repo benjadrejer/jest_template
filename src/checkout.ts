@@ -20,17 +20,33 @@ export const checkout = (books: string[]) => {
   if (allBooksAreIdentical) {
     return totalCost;
   } else {
-    const someAreIdentical = books.some(
-      (book) => book === books[0] || book === books[1]
-    );
-    if (someAreIdentical) {
-      const totalCostForDifferentBooks = 2 * 8 * 0.95;
-      if (numberOfBooks > 2) {
-        return totalCostForDifferentBooks + 8;
+    let bookshelf: Record<string, number> = {};
+    for (const book of books) {
+      if (!bookshelf[book]) {
+        bookshelf[book] = 1;
       } else {
-        return totalCostForDifferentBooks;
+        bookshelf[book]++;
       }
     }
-    return 8 * numberOfBooks;
+    const numberOfUniqueBooks = Object.values(bookshelf);
+    const maxNumberOfUniqueBooks = Math.max(...numberOfUniqueBooks);
+
+    let pairs = 0;
+    for (let index = 0; index < maxNumberOfUniqueBooks; index++) {
+      const uniqueBooks = Object.keys(bookshelf);
+
+      if (bookshelf[uniqueBooks[0]] > 0 && bookshelf[uniqueBooks[1]] > 0) {
+        pairs++;
+        bookshelf[uniqueBooks[0]]--;
+        bookshelf[uniqueBooks[1]]--;
+      }
+    }
+
+    const totalSingles = Object.values(bookshelf).reduce(
+      (total, current) => total + current,
+      0
+    );
+
+    return pairs * 16 * 0.95 + totalSingles * 8;
   }
 };

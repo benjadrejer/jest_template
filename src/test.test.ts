@@ -29,4 +29,18 @@ describe("Potter Kata", () => {
     const expectedResult = 16 - 0.8 + 8;
     expect(result).toBe(expectedResult);
   });
+
+  it("Gives 5% discount on 2 pairs of different books", () => {
+    const books = ["Potter 1", "Potter 2", "Potter 1", "Potter 2"];
+    const result = checkout(books);
+    const expectedResult = 4 * 8 * 0.95;
+    expect(result).toBe(expectedResult);
+  });
+
+  it("Gives 5% discount on 2 pairs of different books and full price on a duplicate", () => {
+    const books = ["Potter 1", "Potter 3", "Potter 1", "Potter 2", "Potter 2"];
+    const result = checkout(books);
+    const expectedResult = 4 * 8 * 0.95 + 8;
+    expect(result).toBe(expectedResult);
+  });
 });
